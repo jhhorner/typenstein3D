@@ -159,9 +159,7 @@ When a ray hits a wall, its distance back to the player determines how tall that
 
 ## The DDA Algorithm
 
-This engine uses the **Digital Differential Analysis (DDA)** to find where each ray intersects the map grid. This requires far more processing due to using trigonometry instead of vectors, but DDA is used to be more inline with the original implementation Id Software used in Wolfenstein 3D.
-
-The naive approach — stepping along a ray pixel by pixel — is too slow. DDA is smarter: it jumps directly to the next grid line crossing, so it only ever checks one tile at a time.
+This engine uses the **Digital Differential Analysis (DDA)** algorithm to find where each ray intersects the map grid. This requires far more processing due to using trigonometry instead of vectors, but DDA is used to be more inline with the original implementation Id Software used in Wolfenstein 3D.
 
 For any ray cast at an angle, there are two kinds of grid crossings to track:
 

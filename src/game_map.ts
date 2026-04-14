@@ -9,9 +9,7 @@ import { furnishedMaps, MapName } from './maps.js';
  * Attributes that a map tile can have. Values correspond to the integer stored in the grid array.
  */
 export const enum TileAttribute {
-  /** Open floor — the player can walk through this tile. */
   Floor,
-  /** Solid wall — blocks movement and reflects rays. */
   Wall,
 }
 
