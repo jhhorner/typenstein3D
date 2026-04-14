@@ -8,18 +8,11 @@ import { theme } from './theme.js';
  */
 export class FloorRenderer extends DefaultGameObject {
   /**
-   * @param color - Fill color for the floor rectangle. Defaults to `theme.floor`.
-   */
-  constructor(private color: string = theme.floor) {
-    super();
-  }
-
-  /**
    * Draws the floor rectangle.
    * @param p - p5 instance.
    */
   render(p: p5): void {
-    p.fill(this.color);
+    p.fill(theme.floor);
     p.noStroke();
     p.rect(9, WINDOW_HEIGHT / 1.5, WINDOW_WIDTH, WINDOW_HEIGHT / 1.5);
   }
