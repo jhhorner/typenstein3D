@@ -3,12 +3,9 @@ import { DefaultGameObject } from './game_object.js';
 import { GameManager } from './game_manager.js';
 import { RAY_COUNT, WALL_PROJECTION_WIDTH } from './ray_caster.js';
 import { CollisionIntercept } from './ray.js';
-import { FOV_ANGLE, MAP_TILE_SIZE, WINDOW_WIDTH } from './constants.js';
+import { HALF_FOV_TANGENT, HALF_WINDOW_WIDTH, MAP_TILE_SIZE } from './constants.js';
 import { DefaultImageLoader } from './image_loader.js';
 import { ImageName } from './image_name.js';
-
-const HALF_FOV_TANGENT = Math.tan(FOV_ANGLE / 2);
-const HALF_WINDOW_WIDTH = WINDOW_WIDTH / 2;
 
 export const wallResourceMap: Record<number, ImageName> = {
   1: ImageName.WallBrick,

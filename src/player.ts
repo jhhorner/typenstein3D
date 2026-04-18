@@ -5,7 +5,7 @@ import { degreesToRadians, Vector } from './math.js';
 import { GameManager } from './game_manager.js';
 import { debugOptions } from './debug_options.js';
 import { theme } from './theme.js';
-import { WINDOW_WIDTH, WINDOW_HEIGHT } from './constants.js';
+import { HALF_WINDOW_WIDTH, HALF_WINDOW_HEIGHT } from './constants.js';
 
 /**
  * Represents a player character. Tracks position, facing angle, and movement intent.
@@ -44,7 +44,7 @@ export class Player extends DefaultGameObject {
   constructor() {
     super();
     this.radius = 3;
-    this.position = { x: WINDOW_WIDTH / 2, y: WINDOW_HEIGHT / 2 };
+    this.position = { x: HALF_WINDOW_WIDTH, y: HALF_WINDOW_HEIGHT };
     this.turnDirection = 0;
     this.walkDirection = 0;
     this.movementSpeed = 120;
