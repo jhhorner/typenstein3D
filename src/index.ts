@@ -3,7 +3,6 @@ import { GameManager } from './game_manager.js';
 import { debugOptions } from './debug_options.js';
 import { MAP_SCALE, WINDOW_WIDTH, WINDOW_HEIGHT } from './constants.js';
 import { DefaultImageLoader } from './image_loader.js';
-import { LogContext } from './logger.js';
 
 /**
  * Entry point. Uses p5 in "instance mode" and wires it to the game loop:
@@ -31,9 +30,7 @@ new p5((p: p5) => {
   }
 
   p.preload = () => {
-    GameManager.instance.logger.info('Preload started', LogContext.Bootstrap);
     DefaultImageLoader.instance.preload(p);
-    GameManager.instance.logger.info('Preload finished', LogContext.Bootstrap);
   };
 
   p.setup = () => {
