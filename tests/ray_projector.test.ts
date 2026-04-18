@@ -21,10 +21,11 @@ describe('RayProjector.render', () => {
   it('should call rect once per ray', () => {
     const projector = new RayProjector();
     const rectSpy = vi.spyOn(p5Mock, 'rect');
+    const imageSpy = vi.spyOn(p5Mock, 'image');
 
     projector.render(p5Mock);
 
-    expect(rectSpy).toHaveBeenCalledTimes(RAY_COUNT);
+    expect(rectSpy).toHaveBeenCalledTimes(RAY_COUNT - imageSpy.mock.calls.length);
     rectSpy.mockRestore();
   });
 

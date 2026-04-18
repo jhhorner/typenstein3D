@@ -55,6 +55,14 @@ export class Ray {
     return this._angle;
   }
 
+  get collidesWithY(): boolean {
+    return this.interceptHit === CollisionIntercept.Vertical;
+  }
+
+  get collidesWithX(): boolean {
+    return this.interceptHit === CollisionIntercept.Horizontal;
+  }
+
   /**
    * @param angle - Angle in radians. Normalized to `[0, 2π)`.
    */

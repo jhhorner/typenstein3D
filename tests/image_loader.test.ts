@@ -83,14 +83,14 @@ describe('DefaultImageLoader.load', () => {
 });
 
 describe('DefaultImageLoader.unload', () => {
-  it('should set the cache entry to null', () => {
+  it('should set the cache entry to undefined', () => {
     const p = makeP5Mock();
     const loader = DefaultImageLoader.instance;
     loader.load(p, ImageName.WallBrick);
 
     loader.unload(ImageName.WallBrick);
 
-    expect((loader as DefaultImageLoader).cache[ImageName.WallBrick]).toBeNull();
+    expect((loader as DefaultImageLoader).cache[ImageName.WallBrick]).not.toBeDefined();
   });
 
   it('should trigger a fresh load after unload', () => {

@@ -8,6 +8,7 @@ export const p5Mock = {
   rect: () => {},
   circle: () => {},
   line: () => {},
+  image: () => {},
 } as unknown as p5;
 
 export function makeP5Mock(image: p5.Image | null = {} as p5.Image): p5 {

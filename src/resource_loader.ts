@@ -12,6 +12,8 @@ export interface ResourceLoader<T, N = string> {
   load(p: p5, name: N): T | null;
   /** Marks a cached entry as stale so the next `load` fetches it again. */
   unload(name: N): void;
+  /** Returns the cached resource or null if it doesn't exist. */
+  get(name: N): T | undefined;
   /** Drops the entire cache. */
   clear(): void;
 }

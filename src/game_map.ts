@@ -34,7 +34,7 @@ export class GameMap extends DefaultGameObject {
         const tileValue = this.grid[i][j];
         const tileXPos: number = j * MAP_TILE_SIZE;
         const tileYPos: number = i * MAP_TILE_SIZE;
-        const tileColor: string = tileValue === 1 ? theme.map.wall : theme.map.floor;
+        const tileColor: string = tileValue >= 1 ? theme.map.wall : theme.map.floor;
 
         p.stroke(theme.map.tileBorder);
         p.fill(tileColor);
@@ -44,16 +44,28 @@ export class GameMap extends DefaultGameObject {
   }
 
   /**
+   * Returns the raw {@link TileAttribute} value at the given world-space position.
+   * @param position - World-space point in pixels.
+   * @returns The integer attribute value of the tile that contains `position`.
+   */
+  getAttributeAt(position: Vector): number {
+    const tilePosition = this._getTilePositionAt(position);
+
+    return this.grid[tilePosition.y][tilePosition.x];
+  }
+
+  /**
    * Returns whether the tile at the given position has the specified attribute.
    * @param position - World-space point in pixels.
    * @param attribute - The {@link TileAttribute} to test for.
    * @returns `true` if the tile at `position` matches `attribute`, `false` otherwise.
    */
   hasAttributeAt(position: Vector, attribute: TileAttribute): boolean {
-    const xTilePosition = Math.floor(position.x / MAP_TILE_SIZE);
-    const yTilePosition = Math.floor(position.y / MAP_TILE_SIZE);
+    if (attribute === TileAttribute.Wall) {
+      return this.getAttributeAt(position) >= TileAttribute.Wall;
+    }
 
-    return this.grid[yTilePosition][xTilePosition] === attribute;
+    return this.getAttributeAt(position) === attribute;
   }
 
   /**
@@ -63,5 +75,17 @@ export class GameMap extends DefaultGameObject {
    */
   isWithinBounds(position: Vector): boolean {
     return position.x >= 0 && position.x <= WINDOW_WIDTH && position.y >= 0 && position.y <= WINDOW_HEIGHT;
+  }
+
+  /**
+   * Converts a world-space pixel position to tile-grid indices.
+   * @param position - World-space point in pixels.
+   * @returns A {@link Vector} whose `x` and `y` are the column and row indices of the containing tile.
+   */
+  private _getTilePositionAt(position: Vector): Vector {
+    const xTilePosition = Math.floor(position.x / MAP_TILE_SIZE);
+    const yTilePosition = Math.floor(position.y / MAP_TILE_SIZE);
+
+    return { x: xTilePosition, y: yTilePosition };
   }
 }

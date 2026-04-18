@@ -24,7 +24,7 @@ export class DefaultImageLoader extends Singleton implements ResourceLoader<p5.I
     return super.instance as ResourceLoader<p5.Image, ImageName>;
   }
 
-  cache: Partial<Record<ImageName, p5.Image | null>> = {};
+  cache: Partial<Record<ImageName, p5.Image | undefined>> = {};
 
   preload(p: p5): void {
     this.load(p, ImageName.Fail);
@@ -57,10 +57,14 @@ export class DefaultImageLoader extends Singleton implements ResourceLoader<p5.I
     return this.cache[name] || this.cache[ImageName.Fail]!;
   }
 
+  get(name: ImageName): p5.Image | undefined {
+    return this.cache[name];
+  }
+
   unload(name: ImageName): void {
     const resource = this.cache[name];
     if (resource) {
-      this.cache[name] = null;
+      this.cache[name] = undefined;
     }
   }
 

@@ -69,10 +69,10 @@ describe('GameMap grid invariants', () => {
     grid.forEach((row) => expect(row).toHaveLength(expectedCols));
   });
 
-  it('should contain only valid tile values (0 or 1)', () => {
+  it('should contain only valid tile values (0, 1 or 2)', () => {
     const map = new GameMap();
     const grid = (map as any).grid as number[][];
-    const validValues = new Set([TileAttribute.Floor, TileAttribute.Wall]);
+    const validValues = new Set([TileAttribute.Floor, TileAttribute.Wall, 2]);
 
     grid.forEach((row) => row.forEach((cell) => expect(validValues.has(cell)).toBe(true)));
   });
