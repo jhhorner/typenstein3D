@@ -5,11 +5,13 @@ import { RAY_COUNT, WALL_PROJECTION_WIDTH } from './ray_caster.js';
 import { CollisionIntercept } from './ray.js';
 import { theme } from './theme.js';
 import { FOV_ANGLE, MAP_TILE_SIZE, WINDOW_WIDTH } from './constants.js';
-import { DefaultImageLoader, ImageName } from './image_loader.js';
+import { DefaultImageLoader } from './image_loader.js';
+import { ImageName } from './image_name.js';
 
 const HALF_FOV_TANGENT = Math.tan(FOV_ANGLE / 2);
 const HALF_WINDOW_WIDTH = WINDOW_WIDTH / 2;
-const wallResourceMap: Record<number, ImageName> = {
+
+export const wallResourceMap: Record<number, ImageName> = {
   1: ImageName.WallBrick,
   2: ImageName.SlateStone,
   3: ImageName.SlateStone2,
@@ -48,6 +50,7 @@ export class RayProjector extends DefaultGameObject {
       const wallTextureName = wallResourceMap[tileValue];
       if (wallTextureName) {
         const wallTexture = DefaultImageLoader.instance.get(wallTextureName);
+
         let offset: number;
         if (ray.collidesWithY) {
           offset = ray.collisionPoint.y % MAP_TILE_SIZE;

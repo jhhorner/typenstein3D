@@ -5,6 +5,7 @@ import { TileAttribute } from '../src/game_map.js';
 import { theme } from '../src/theme.js';
 import { p5Mock } from './helpers/p5Mock.js';
 import { WINDOW_WIDTH, WINDOW_HEIGHT } from '../src/constants.js';
+import { wallResourceMap } from '../src/ray_projector.js';
 
 describe('GameMap.isWithinBounds', () => {
   const map = new GameMap();
@@ -69,10 +70,10 @@ describe('GameMap grid invariants', () => {
     grid.forEach((row) => expect(row).toHaveLength(expectedCols));
   });
 
-  it('should contain only valid tile values (0, 1 or 2)', () => {
+  it('should contain only valid tile values', () => {
     const map = new GameMap();
     const grid = (map as any).grid as number[][];
-    const validValues = new Set([TileAttribute.Floor, TileAttribute.Wall, 2]);
+    const validValues = new Set([TileAttribute.Floor, ...Object.keys(wallResourceMap).map(Number)]);
 
     grid.forEach((row) => row.forEach((cell) => expect(validValues.has(cell)).toBe(true)));
   });

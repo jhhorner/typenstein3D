@@ -1,7 +1,9 @@
 import type p5 from 'p5';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { makeP5Mock } from './helpers/p5Mock.js';
-import { DefaultImageLoader, ImageName } from '../src/image_loader.js';
+import { DefaultImageLoader } from '../src/image_loader.js';
+import { GameManager } from '../src/game_manager.js';
+import { ImageName } from '../src/image_name.js';
 
 function assetPath(name: ImageName): string {
   const parts = name.split('_');
@@ -70,6 +72,17 @@ describe('DefaultImageLoader.load', () => {
     expect(p.loadImage).toHaveBeenCalledTimes(1);
   });
 
+  it('should call logger.error when p.loadImage fails', () => {
+    const p = makeP5Mock(null);
+    const loader = DefaultImageLoader.instance;
+    const errorSpy = vi.spyOn(GameManager.instance.logger, 'error');
+
+    loader.load(p, ImageName.WallBrick);
+
+    expect(errorSpy).toHaveBeenCalled();
+    errorSpy.mockRestore();
+  });
+
   it('should fall back to the Fail image when the requested image fails to load', () => {
     const failImage = {} as p5.Image;
     const p = makeP5Mock(null);
@@ -82,6 +95,30 @@ describe('DefaultImageLoader.load', () => {
   });
 });
 
+describe('DefaultImageLoader.get', () => {
+  it('should return the cached image', () => {
+    const image = {} as p5.Image;
+    const loader = DefaultImageLoader.instance as DefaultImageLoader;
+    loader.cache[ImageName.WallBrick] = image;
+
+    expect(loader.get(ImageName.WallBrick)).toBe(image);
+  });
+
+  it('should return the Fail image when the requested image is not cached', () => {
+    const failImage = {} as p5.Image;
+    const loader = DefaultImageLoader.instance as DefaultImageLoader;
+    loader.cache[ImageName.Fail] = failImage;
+
+    expect(loader.get(ImageName.WallBrick)).toBe(failImage);
+  });
+
+  it('should return undefined when neither the requested image nor Fail is cached', () => {
+    const loader = DefaultImageLoader.instance;
+
+    expect(loader.get(ImageName.WallBrick)).toBeUndefined();
+  });
+});
+
 describe('DefaultImageLoader.unload', () => {
   it('should set the cache entry to undefined', () => {
     const p = makeP5Mock();
@@ -91,6 +128,13 @@ describe('DefaultImageLoader.unload', () => {
     loader.unload(ImageName.WallBrick);
 
     expect((loader as DefaultImageLoader).cache[ImageName.WallBrick]).not.toBeDefined();
+  });
+
+  it('should do nothing when the image is not cached', () => {
+    const loader = DefaultImageLoader.instance;
+
+    expect(() => loader.unload(ImageName.WallBrick)).not.toThrow();
+    expect((loader as DefaultImageLoader).cache[ImageName.WallBrick]).toBeUndefined();
   });
 
   it('should trigger a fresh load after unload', () => {

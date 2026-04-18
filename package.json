@@ -4,9 +4,10 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "python -m http.server 3000",
-    "test": "vitest run",
+    "test": "vitest run && npm run test:coverage",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "test:coverage:view": "open ./coverage/index.html",
     "ts:format:check": "prettier . --check",
     "ts:format:write": "prettier . --write",
     "ts:compile": "tsc",

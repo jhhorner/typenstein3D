@@ -14,8 +14,9 @@ export const p5Mock = {
 export function makeP5Mock(image: p5.Image | null = {} as p5.Image): p5 {
   return {
     ...p5Mock,
-    loadImage: vi.fn((_path: string, onSuccess?: () => void) => {
+    loadImage: vi.fn((_path: string, onSuccess?: () => void, onError?: (err: Event) => void) => {
       if (image && onSuccess) onSuccess();
+      if (!image && onError) onError(new Event('error'));
       return image;
     }),
   } as unknown as p5;

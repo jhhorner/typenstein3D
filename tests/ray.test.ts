@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { GameManager } from '../src/game_manager.js';
-import { Ray } from '../src/ray.js';
+import { Ray, CollisionIntercept } from '../src/ray.js';
 import { MAP_TILE_SIZE } from '../src/constants.js';
 import { theme } from '../src/theme.js';
 import { p5Mock } from './helpers/p5Mock.js';
@@ -67,6 +67,29 @@ describe('Ray.reset', () => {
 
     expect(ray.isFacingUp).toBe(true);
     expect(ray.isFacingLeft).toBe(true);
+  });
+});
+
+describe('Ray.collidesWithX', () => {
+  it('should return true when interceptHit is Horizontal', () => {
+    const ray = new Ray(0);
+    ray.interceptHit = CollisionIntercept.Horizontal;
+
+    expect(ray.collidesWithX).toBe(true);
+  });
+
+  it('should return false when interceptHit is Vertical', () => {
+    const ray = new Ray(0);
+    ray.interceptHit = CollisionIntercept.Vertical;
+
+    expect(ray.collidesWithX).toBe(false);
+  });
+
+  it('should return false when interceptHit is None', () => {
+    const ray = new Ray(0);
+    ray.interceptHit = CollisionIntercept.None;
+
+    expect(ray.collidesWithX).toBe(false);
   });
 });
 
