@@ -13,6 +13,12 @@ import { Singleton } from './singleton.js';
 export const enum ImageName {
   Fail = 'goofed.png',
   WallBrick = 'wall_brick.png',
+  SlateStone = 'wall_slate.png',
+  SlateStone2 = 'wall_slate2.png',
+  SlateStone3 = 'wall_slate3.png',
+  SlateStoneSign = 'wall_slatesign.png',
+  BlueStone = 'wall_bluestone.png',
+  Purple = 'wall_purple.png',
 }
 
 /**
@@ -29,6 +35,12 @@ export class DefaultImageLoader extends Singleton implements ResourceLoader<p5.I
   preload(p: p5): void {
     this.load(p, ImageName.Fail);
     this.load(p, ImageName.WallBrick);
+    this.load(p, ImageName.SlateStone);
+    this.load(p, ImageName.SlateStone2);
+    this.load(p, ImageName.SlateStone3);
+    this.load(p, ImageName.SlateStoneSign);
+    this.load(p, ImageName.BlueStone);
+    this.load(p, ImageName.Purple);
   }
 
   load(p: p5, name: ImageName): p5.Image {
@@ -58,7 +70,7 @@ export class DefaultImageLoader extends Singleton implements ResourceLoader<p5.I
   }
 
   get(name: ImageName): p5.Image | undefined {
-    return this.cache[name];
+    return this.cache[name] || this.cache[ImageName.Fail];
   }
 
   unload(name: ImageName): void {

@@ -9,6 +9,15 @@ import { DefaultImageLoader, ImageName } from './image_loader.js';
 
 const HALF_FOV_TANGENT = Math.tan(FOV_ANGLE / 2);
 const HALF_WINDOW_WIDTH = WINDOW_WIDTH / 2;
+const wallResourceMap: Record<number, ImageName> = {
+  1: ImageName.WallBrick,
+  2: ImageName.SlateStone,
+  3: ImageName.SlateStone2,
+  4: ImageName.SlateStone3,
+  5: ImageName.SlateStoneSign,
+  6: ImageName.BlueStone,
+  7: ImageName.Purple,
+};
 
 /**
  * Projects ray casted wall distances into a pseudo-3D first-person view.
@@ -21,8 +30,6 @@ export class RayProjector extends DefaultGameObject {
   render(p: p5): void {
     const distanceProjectionPlane = HALF_WINDOW_WIDTH / HALF_FOV_TANGENT;
     const playerRotationAngle = GameManager.instance.player.rotationAngle;
-    const testWallTexture = DefaultImageLoader.instance.get(ImageName.WallBrick);
-    const textureWidth = testWallTexture?.width;
 
     for (let i = 0; i < RAY_COUNT; i++) {
       const ray = GameManager.instance.rayCaster.rays[i];
@@ -36,38 +43,39 @@ export class RayProjector extends DefaultGameObject {
         y: ray.collisionPoint.y + tileY,
       });
 
-      if (theme.gradientShading) {
-        const gradient = Math.exp(-correctedDistance * theme.gradientScale);
-        const brightness = baseColor * gradient;
-        p.fill(brightness, brightness, brightness, 255);
-      } else {
-        p.fill(baseColor, baseColor, baseColor, 255);
-      }
-
       p.noStroke();
 
-      // TODO: Refactor after testing wall texturing
-      if (tileValue === 2) {
+      const wallTextureName = wallResourceMap[tileValue];
+      if (wallTextureName) {
+        const wallTexture = DefaultImageLoader.instance.get(wallTextureName);
         let offset: number;
         if (ray.collidesWithY) {
           offset = ray.collisionPoint.y % MAP_TILE_SIZE;
         } else {
           offset = ray.collisionPoint.x % MAP_TILE_SIZE;
         }
-        const texelX = Math.floor((offset / MAP_TILE_SIZE) * textureWidth!);
+        const xTexelPosition = Math.floor((offset / MAP_TILE_SIZE) * wallTexture!.width);
 
         p.image(
-          testWallTexture!,
+          wallTexture!,
           i * WALL_PROJECTION_WIDTH,
           HALF_WINDOW_WIDTH - projectedWallHeight / 2,
           WALL_PROJECTION_WIDTH,
           projectedWallHeight,
-          texelX,
+          xTexelPosition,
           0,
           1,
           MAP_TILE_SIZE,
         );
       } else {
+        if (theme.gradientShading) {
+          const gradient = Math.exp(-correctedDistance * theme.gradientScale);
+          const brightness = baseColor * gradient;
+          p.fill(brightness, brightness, brightness, 255);
+        } else {
+          p.fill(baseColor, baseColor, baseColor, 255);
+        }
+
         p.rect(
           i * WALL_PROJECTION_WIDTH,
           HALF_WINDOW_WIDTH - projectedWallHeight / 2,
