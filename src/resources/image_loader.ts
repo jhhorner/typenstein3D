@@ -1,8 +1,8 @@
 import type p5 from 'p5';
-import { ResourceLoader } from './resource_loader.js';
-import { GameManager } from './game_manager.js';
-import { LogContext } from './logger.js';
-import { Singleton } from './singleton.js';
+import { ResourceLoader } from '../core/resource_loader.js';
+import { GameManager } from '../game_manager.js';
+import { LogContext } from '../logging/logger.js';
+import { Singleton } from '../core/singleton.js';
 import { ImageName } from './image_name.js';
 
 /**

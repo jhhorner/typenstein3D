@@ -1,7 +1,7 @@
 import p5 from 'p5';
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from './constants.js';
-import { DefaultGameObject } from './game_object.js';
-import { theme } from './theme.js';
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../core/constants.js';
+import { DefaultGameObject } from '../core/game_object.js';
+import { theme } from '../config/theme.js';
 
 /**
  * Renders the floor background rectangle.

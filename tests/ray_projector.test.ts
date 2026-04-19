@@ -1,13 +1,13 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
 import type p5 from 'p5';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { makeP5Mock, mockDeltaTime } from './helpers/p5Mock.js';
 import { GameManager } from '../src/game_manager.js';
-import { RayCaster, RAY_COUNT, WALL_PROJECTION_WIDTH } from '../src/ray_caster.js';
-import { RayProjector } from '../src/ray_projector.js';
-import { CollisionIntercept } from '../src/ray.js';
-import { DefaultImageLoader } from '../src/image_loader.js';
-import { MAP_TILE_SIZE } from '../src/constants.js';
-import { ImageName } from '../src/image_name.js';
+import { RayCaster, RAY_COUNT, WALL_PROJECTION_WIDTH } from '../src/rendering/ray_caster.js';
+import { RayProjector } from '../src/rendering/ray_projector.js';
+import { CollisionIntercept } from '../src/rendering/ray.js';
+import { DefaultImageLoader } from '../src/resources/image_loader.js';
+import { MAP_TILE_SIZE } from '../src/core/constants.js';
+import { ImageName } from '../src/resources/image_name.js';
 
 let p5Mock: p5;
 

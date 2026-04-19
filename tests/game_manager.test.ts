@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { GameManager } from '../src/game_manager.js';
-import { GameMap } from '../src/game_map.js';
-import { Player } from '../src/player.js';
-import { RayCaster } from '../src/ray_caster.js';
-import { RayProjector } from '../src/ray_projector.js';
-import { SkyRenderer } from '../src/sky_renderer.js';
-import { FloorRenderer } from '../src/floor_renderer.js';
+import { GameMap } from '../src/world/game_map.js';
+import { Player } from '../src/player/player.js';
+import { RayCaster } from '../src/rendering/ray_caster.js';
+import { RayProjector } from '../src/rendering/ray_projector.js';
+import { SkyRenderer } from '../src/rendering/sky_renderer.js';
+import { FloorRenderer } from '../src/rendering/floor_renderer.js';
 
 beforeEach(() => {
   GameManager._resetInstance();

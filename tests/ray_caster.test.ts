@@ -1,8 +1,8 @@
 import type p5 from 'p5';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { GameManager } from '../src/game_manager.js';
-import { RayCaster, RAY_COUNT } from '../src/ray_caster.js';
-import { debugOptions } from '../src/debug_options.js';
+import { RayCaster, RAY_COUNT } from '../src/rendering/ray_caster.js';
+import { debugOptions } from '../src/config/debug_options.js';
 import { makeP5Mock, mockDeltaTime } from './helpers/p5Mock.js';
 
 let p5Mock: p5;

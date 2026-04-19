@@ -1,7 +1,7 @@
 import p5 from 'p5';
-import { theme } from './theme.js';
-import { DefaultGameObject } from './game_object.js';
-import { WINDOW_WIDTH, WINDOW_HEIGHT } from './constants.js';
+import { theme } from '../config/theme.js';
+import { DefaultGameObject } from '../core/game_object.js';
+import { WINDOW_WIDTH, WINDOW_HEIGHT } from '../core/constants.js';
 
 /**
  * Renders the sky background rectangle in the 3D scene.

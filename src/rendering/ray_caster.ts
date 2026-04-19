@@ -1,9 +1,9 @@
 import type p5 from 'p5';
 import { Ray } from './ray.js';
-import { GameManager } from './game_manager.js';
-import { DefaultGameObject } from './game_object.js';
-import { debugOptions } from './debug_options.js';
-import { FOV_ANGLE, WINDOW_WIDTH } from './constants.js';
+import { GameManager } from '../game_manager.js';
+import { DefaultGameObject } from '../core/game_object.js';
+import { debugOptions } from '../config/debug_options.js';
+import { FOV_ANGLE, WINDOW_WIDTH } from '../core/constants.js';
 
 /** Number of vertical screen columns used for wall projection. */
 export const WALL_PROJECTION_WIDTH = 1;

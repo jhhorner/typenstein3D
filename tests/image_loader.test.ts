@@ -1,9 +1,9 @@
 import type p5 from 'p5';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { makeP5Mock } from './helpers/p5Mock.js';
-import { DefaultImageLoader } from '../src/image_loader.js';
+import { DefaultImageLoader } from '../src/resources/image_loader.js';
 import { GameManager } from '../src/game_manager.js';
-import { ImageName } from '../src/image_name.js';
+import { ImageName } from '../src/resources/image_name.js';
 
 function assetPath(name: ImageName): string {
   const parts = name.split('_');

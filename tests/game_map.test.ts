@@ -1,12 +1,12 @@
 import type p5 from 'p5';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { GameMap } from '../src/game_map.js';
-import { MAP_TILE_SIZE } from '../src/constants.js';
-import { TileAttribute } from '../src/game_map.js';
-import { theme } from '../src/theme.js';
+import { GameMap } from '../src/world/game_map.js';
+import { MAP_TILE_SIZE } from '../src/core/constants.js';
+import { TileAttribute } from '../src/world/game_map.js';
+import { theme } from '../src/config/theme.js';
 import { makeP5Mock } from './helpers/p5Mock.js';
-import { WINDOW_WIDTH, WINDOW_HEIGHT } from '../src/constants.js';
-import { wallResourceMap } from '../src/ray_projector.js';
+import { WINDOW_WIDTH, WINDOW_HEIGHT } from '../src/core/constants.js';
+import { wallResourceMap } from '../src/rendering/ray_projector.js';
 
 let p5Mock: p5;
 

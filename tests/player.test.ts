@@ -1,11 +1,11 @@
 import type p5 from 'p5';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { GameManager } from '../src/game_manager.js';
-import { Player } from '../src/player.js';
-import { debugOptions } from '../src/debug_options.js';
-import { theme } from '../src/theme.js';
+import { Player } from '../src/player/player.js';
+import { debugOptions } from '../src/config/debug_options.js';
+import { theme } from '../src/config/theme.js';
 import { makeP5Mock, mockDeltaTime } from './helpers/p5Mock.js';
-import { WINDOW_HEIGHT, HALF_WINDOW_WIDTH, HALF_WINDOW_HEIGHT } from '../src/constants.js';
+import { WINDOW_HEIGHT, HALF_WINDOW_WIDTH, HALF_WINDOW_HEIGHT } from '../src/core/constants.js';
 
 let p5Mock: p5;
 let player: Player;

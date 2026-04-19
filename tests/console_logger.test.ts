@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { ConsoleLogger } from '../src/console_logger.js';
-import { LogContext, Logger } from '../src/logger.js';
+import { ConsoleLogger } from '../src/logging/console_logger.js';
+import { LogContext, Logger } from '../src/logging/logger.js';
 
 beforeEach(() => {
   ConsoleLogger._resetInstance();

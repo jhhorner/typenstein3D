@@ -1,8 +1,8 @@
 import type p5 from 'p5';
-import { DefaultGameObject } from './game_object.js';
-import { Vector } from './math.js';
-import { theme } from './theme.js';
-import { MAP_TILE_SIZE, MAP_ROW_COUNT, MAP_COLUMN_COUNT, WINDOW_WIDTH, WINDOW_HEIGHT } from './constants.js';
+import { DefaultGameObject } from '../core/game_object.js';
+import { Vector } from '../core/math.js';
+import { theme } from '../config/theme.js';
+import { MAP_TILE_SIZE, MAP_ROW_COUNT, MAP_COLUMN_COUNT, WINDOW_WIDTH, WINDOW_HEIGHT } from '../core/constants.js';
 import { furnishedMaps, MapName } from './maps.js';
 
 /**

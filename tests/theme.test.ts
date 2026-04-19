@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeAll, beforeEach, afterAll, afterEach } from 'vitest';
-import { theme } from '../src/theme.js';
+import { theme } from '../src/config/theme.js';
 
 describe('theme defaults', () => {
   it('should have expected tileBorder color', () => {
@@ -61,7 +61,7 @@ describe('window.theme module-level assignment', () => {
   });
 
   it('should assign theme to window when window is defined at module load', async () => {
-    const { theme: freshTheme } = await import('../src/theme.js');
+    const { theme: freshTheme } = await import('../src/config/theme.js');
 
     expect((globalThis as any).window.theme).toBe(freshTheme);
   });

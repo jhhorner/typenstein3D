@@ -1,6 +1,6 @@
 import type p5 from 'p5';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { DefaultGameObject } from '../src/game_object.js';
+import { DefaultGameObject } from '../src/core/game_object.js';
 import { makeP5Mock, mockDeltaTime } from './helpers/p5Mock.js';
 
 let p5Mock: p5;

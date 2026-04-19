@@ -1,11 +1,11 @@
 import type p5 from 'p5';
-import { TileAttribute } from './game_map.js';
-import { DefaultGameObject } from './game_object.js';
-import { degreesToRadians, Vector } from './math.js';
-import { GameManager } from './game_manager.js';
-import { debugOptions } from './debug_options.js';
-import { theme } from './theme.js';
-import { HALF_WINDOW_WIDTH, HALF_WINDOW_HEIGHT } from './constants.js';
+import { TileAttribute } from '../world/game_map.js';
+import { DefaultGameObject } from '../core/game_object.js';
+import { degreesToRadians, Vector } from '../core/math.js';
+import { GameManager } from '../game_manager.js';
+import { debugOptions } from '../config/debug_options.js';
+import { theme } from '../config/theme.js';
+import { HALF_WINDOW_WIDTH, HALF_WINDOW_HEIGHT } from '../core/constants.js';
 
 /**
  * Represents a player character. Tracks position, facing angle, and movement intent.

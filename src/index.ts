@@ -1,8 +1,8 @@
 import type p5 from 'p5';
 import { GameManager } from './game_manager.js';
-import { debugOptions } from './debug_options.js';
-import { MAP_SCALE, WINDOW_WIDTH, WINDOW_HEIGHT, SECOND_IN_MILLISECONDS } from './constants.js';
-import { DefaultImageLoader } from './image_loader.js';
+import { debugOptions } from './config/debug_options.js';
+import { MAP_SCALE, WINDOW_WIDTH, WINDOW_HEIGHT, SECOND_IN_MILLISECONDS } from './core/constants.js';
+import { DefaultImageLoader } from './resources/image_loader.js';
 
 /**
  * Entry point. Uses p5 in "instance mode" and wires it to the game loop:

@@ -1,5 +1,5 @@
 import { LogContext, Logger, LogLevel } from './logger.js';
-import { Singleton } from './singleton.js';
+import { Singleton } from '../core/singleton.js';
 
 /** Singleton logger that writes formatted entries to the browser console. */
 export class ConsoleLogger extends Singleton implements Logger {

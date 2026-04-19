@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import type p5 from 'p5';
-import { SkyRenderer } from '../src/sky_renderer.js';
-import { theme } from '../src/theme.js';
+import { SkyRenderer } from '../src/rendering/sky_renderer.js';
+import { theme } from '../src/config/theme.js';
 import { makeP5Mock } from './helpers/p5Mock.js';
-import { WINDOW_WIDTH, WINDOW_HEIGHT } from '../src/constants.js';
+import { WINDOW_WIDTH, WINDOW_HEIGHT } from '../src/core/constants.js';
 
 let p5Mock: p5;
 

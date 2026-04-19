@@ -1,11 +1,11 @@
 import type p5 from 'p5';
-import { DefaultGameObject } from './game_object.js';
-import { GameManager } from './game_manager.js';
+import { DefaultGameObject } from '../core/game_object.js';
+import { GameManager } from '../game_manager.js';
 import { RAY_COUNT, WALL_PROJECTION_WIDTH } from './ray_caster.js';
 import { CollisionIntercept } from './ray.js';
-import { HALF_FOV_TANGENT, HALF_WINDOW_WIDTH, MAP_TILE_SIZE } from './constants.js';
-import { DefaultImageLoader } from './image_loader.js';
-import { ImageName } from './image_name.js';
+import { HALF_FOV_TANGENT, HALF_WINDOW_WIDTH, MAP_TILE_SIZE } from '../core/constants.js';
+import { DefaultImageLoader } from '../resources/image_loader.js';
+import { ImageName } from '../resources/image_name.js';
 
 export const wallResourceMap: Record<number, ImageName> = {
   1: ImageName.WallBrick,

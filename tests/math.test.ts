@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { degreesToRadians, radiansToDegrees, distance } from '../src/math.js';
+import { degreesToRadians, radiansToDegrees, distance } from '../src/core/math.js';
 
 describe('degreesToRadians', () => {
   it('should convert 0° to 0', () => {

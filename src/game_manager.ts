@@ -1,13 +1,13 @@
-import { GameMap } from './game_map.js';
-import { GameObject } from './game_object.js';
-import { Player } from './player.js';
-import { RayCaster } from './ray_caster.js';
-import { RayProjector } from './ray_projector.js';
-import { SkyRenderer } from './sky_renderer.js';
-import { FloorRenderer } from './floor_renderer.js';
-import { ConsoleLogger } from './console_logger.js';
-import { Logger } from './logger.js';
-import { Singleton } from './singleton.js';
+import { GameMap } from './world/game_map.js';
+import { GameObject } from './core/game_object.js';
+import { Player } from './player/player.js';
+import { RayCaster } from './rendering/ray_caster.js';
+import { RayProjector } from './rendering/ray_projector.js';
+import { SkyRenderer } from './rendering/sky_renderer.js';
+import { FloorRenderer } from './rendering/floor_renderer.js';
+import { ConsoleLogger } from './logging/console_logger.js';
+import { Logger } from './logging/logger.js';
+import { Singleton } from './core/singleton.js';
 
 /**
  * Singleton coordinator for all game objects.

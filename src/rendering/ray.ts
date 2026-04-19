@@ -1,9 +1,9 @@
 import type p5 from 'p5';
-import { theme } from './theme.js';
-import { distance, Vector } from './math.js';
-import { GameManager } from './game_manager.js';
-import { TileAttribute } from './game_map.js';
-import { MAP_TILE_SIZE } from './constants.js';
+import { theme } from '../config/theme.js';
+import { distance, Vector } from '../core/math.js';
+import { GameManager } from '../game_manager.js';
+import { TileAttribute } from '../world/game_map.js';
+import { MAP_TILE_SIZE } from '../core/constants.js';
 
 type Intercept = {
   x: number;

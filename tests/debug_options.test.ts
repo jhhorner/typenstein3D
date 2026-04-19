@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 describe('debugOptions defaults', () => {
   it('should have expected render defaults', async () => {
-    const { debugOptions } = await import('../src/debug_options.js');
+    const { debugOptions } = await import('../src/config/debug_options.js');
 
     expect(debugOptions.render.map).toBe(true);
     expect(debugOptions.render.mapScale).toBe(0.2);
@@ -23,13 +23,13 @@ describe('window.debugOptions module-level assignment', () => {
   });
 
   it('should assign debugOptions to window when window is defined at module load', async () => {
-    const { debugOptions } = await import('../src/debug_options.js');
+    const { debugOptions } = await import('../src/config/debug_options.js');
 
     expect((globalThis as any).window.debugOptions).toBe(debugOptions);
   });
 
   it('should reflect mutations via window.debugOptions in the imported debugOptions', async () => {
-    const { debugOptions } = await import('../src/debug_options.js');
+    const { debugOptions } = await import('../src/config/debug_options.js');
     const original = debugOptions.render.map;
 
     (globalThis as any).window.debugOptions.render.map = false;

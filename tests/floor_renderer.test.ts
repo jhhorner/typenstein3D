@@ -1,9 +1,9 @@
 import type p5 from 'p5';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { FloorRenderer } from '../src/floor_renderer.js';
-import { theme } from '../src/theme.js';
+import { FloorRenderer } from '../src/rendering/floor_renderer.js';
+import { theme } from '../src/config/theme.js';
 import { makeP5Mock } from './helpers/p5Mock.js';
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../src/constants.js';
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../src/core/constants.js';
 
 let p5Mock: p5;
 
