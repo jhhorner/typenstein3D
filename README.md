@@ -34,13 +34,13 @@ npm start               # Serve at http://localhost:3000
 ### Development Commands
 
 ```bash
-npm run ts:watch        # Recompile on save
-npm start               # Serve at http://localhost:3000 (Python web server)
-npm test                # Run unit tests
-npm run test:coverage   # Generate coverage report
+npm run ts:watch           # Recompile on save
+npm start                  # Serve at http://localhost:3000 (Python web server)
+npm test                   # Run unit tests
+npm run test:coverage      # Generate coverage report
 npm run ts:format:write    # Run prettier in write mode
-npm run ts:lint         # Run ESLint in src/ and test/
-npm run build:docs      # Build documentation -> docs/
+npm run ts:lint            # Run ESLint in src/ and test/
+npm run build:docs         # Build documentation -> docs/
 ```
 
 ### Controls
