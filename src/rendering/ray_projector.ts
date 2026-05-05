@@ -3,7 +3,7 @@ import { DefaultGameObject } from '../core/game_object.js';
 import { HALF_FOV_TANGENT, HALF_WINDOW_WIDTH, MAP_TILE_SIZE } from '../core/constants.js';
 import { GameManager } from '../game_manager.js';
 import { RAY_COUNT, WALL_PROJECTION_WIDTH } from './ray_caster.js';
-import { CollisionIntercept } from './ray.js';
+import { CollisionIntercept, RayDirection } from './ray.js';
 import { DefaultImageLoader } from '../resources/image_loader.js';
 import { ImageName } from '../resources/image_name.js';
 
@@ -30,8 +30,10 @@ export class RayProjector extends DefaultGameObject {
       const ray = GameManager.instance.rayCaster.rays[i];
       const correctedDistance = ray.distance * Math.cos(ray.angle - playerRotationAngle);
       const projectedWallHeight = (MAP_TILE_SIZE / correctedDistance) * distanceProjectionPlane;
-      const tileX = ray.interceptHit === CollisionIntercept.Vertical && ray.isFacingLeft ? -1 : 0;
-      const tileY = ray.interceptHit === CollisionIntercept.Horizontal && ray.isFacingUp ? -1 : 0;
+      const tileX =
+        ray.interceptHit === CollisionIntercept.Vertical && ray.facingDirection & RayDirection.Left ? -1 : 0;
+      const tileY =
+        ray.interceptHit === CollisionIntercept.Horizontal && ray.facingDirection & RayDirection.Up ? -1 : 0;
       const tileValue = GameManager.instance.map.getAttributeAt({
         x: ray.collisionPoint.x + tileX,
         y: ray.collisionPoint.y + tileY,

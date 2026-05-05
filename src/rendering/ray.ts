@@ -19,6 +19,13 @@ export enum CollisionIntercept {
   Horizontal,
 }
 
+export const enum RayDirection {
+  Up = 1 << 0,
+  Down = 1 << 1,
+  Left = 1 << 2,
+  Right = 1 << 3,
+}
+
 /**
  * A single ray cast from the player's position at a given angle.
  */
@@ -28,10 +35,7 @@ export class Ray {
   private readonly _hIntercept: Intercept = { x: 0, y: 0, xStep: 0, yStep: 0 };
   private readonly _vIntercept: Intercept = { x: 0, y: 0, xStep: 0, yStep: 0 };
 
-  isFacingUp = false;
-  isFacingDown = true;
-  isFacingLeft = false;
-  isFacingRight = false;
+  facingDirection: RayDirection = RayDirection.Down | RayDirection.Right;
 
   distance: number = 0;
   interceptHit = CollisionIntercept.None;
@@ -45,10 +49,10 @@ export class Ray {
     this._angle = Ray.normalize(newAngle);
     this._tanAngle = Math.tan(this._angle);
 
-    this.isFacingDown = this._angle > 0 && this._angle < Math.PI;
-    this.isFacingUp = !this.isFacingDown;
-    this.isFacingLeft = !(this._angle < 0.5 * Math.PI || this._angle > 1.5 * Math.PI);
-    this.isFacingRight = !this.isFacingLeft;
+    const facingDown = this._angle > 0 && this._angle < Math.PI;
+    const facingLeft = !(this._angle < 0.5 * Math.PI || this._angle > 1.5 * Math.PI);
+    this.facingDirection =
+      (facingDown ? RayDirection.Down : RayDirection.Up) | (facingLeft ? RayDirection.Left : RayDirection.Right);
   }
 
   get angle(): number {
@@ -130,14 +134,17 @@ export class Ray {
    */
   private findCollidingHorizontalIntercept(playerPosition: Vector): Vector {
     this._hIntercept.y = Math.floor(playerPosition.y / MAP_TILE_SIZE) * MAP_TILE_SIZE;
-    this._hIntercept.y += this.isFacingDown ? MAP_TILE_SIZE : 0;
+    this._hIntercept.y += this.facingDirection & RayDirection.Down ? MAP_TILE_SIZE : 0;
     this._hIntercept.x = playerPosition.x + (this._hIntercept.y - playerPosition.y) / this._tanAngle;
 
     this._hIntercept.yStep = MAP_TILE_SIZE;
-    this._hIntercept.yStep *= this.isFacingUp ? -1 : 1;
-    this._hIntercept.xStep = Ray.alignSign(MAP_TILE_SIZE / this._tanAngle, this.isFacingLeft);
+    this._hIntercept.yStep *= this.facingDirection & RayDirection.Up ? -1 : 1;
+    this._hIntercept.xStep = Ray.alignSign(
+      MAP_TILE_SIZE / this._tanAngle,
+      !!(this.facingDirection & RayDirection.Left),
+    );
 
-    return this.getCollisionIntercept(this._hIntercept, { x: 0, y: this.isFacingUp ? -1 : 0 });
+    return this.getCollisionIntercept(this._hIntercept, { x: 0, y: this.facingDirection & RayDirection.Up ? -1 : 0 });
   }
 
   /**
@@ -147,14 +154,14 @@ export class Ray {
    */
   private findCollidingVerticalIntercept(playerPosition: Vector): Vector {
     this._vIntercept.x = Math.floor(playerPosition.x / MAP_TILE_SIZE) * MAP_TILE_SIZE;
-    this._vIntercept.x += this.isFacingRight ? MAP_TILE_SIZE : 0;
+    this._vIntercept.x += this.facingDirection & RayDirection.Right ? MAP_TILE_SIZE : 0;
     this._vIntercept.y = playerPosition.y + (this._vIntercept.x - playerPosition.x) * this._tanAngle;
 
     this._vIntercept.xStep = MAP_TILE_SIZE;
-    this._vIntercept.xStep *= this.isFacingLeft ? -1 : 1;
-    this._vIntercept.yStep = Ray.alignSign(MAP_TILE_SIZE * this._tanAngle, this.isFacingUp);
+    this._vIntercept.xStep *= this.facingDirection & RayDirection.Left ? -1 : 1;
+    this._vIntercept.yStep = Ray.alignSign(MAP_TILE_SIZE * this._tanAngle, !!(this.facingDirection & RayDirection.Up));
 
-    return this.getCollisionIntercept(this._vIntercept, { x: this.isFacingLeft ? -1 : 0, y: 0 });
+    return this.getCollisionIntercept(this._vIntercept, { x: this.facingDirection & RayDirection.Left ? -1 : 0, y: 0 });
   }
 
   /**
