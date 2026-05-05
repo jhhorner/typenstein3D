@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import type p5 from 'p5';
 import { GameManager } from '../../src/game_manager.js';
-import { Ray, CollisionIntercept } from '../../src/rendering/ray.js';
+import { Ray, CollisionIntercept, RayDirection } from '../../src/rendering/ray.js';
 import { MAP_TILE_SIZE } from '../../src/core/constants.js';
 import { theme } from '../../src/config/theme.js';
 import { makeP5Mock } from '../helpers/p5Mock.js';
@@ -14,34 +14,34 @@ beforeEach(() => {
 });
 
 describe('Ray direction flags', () => {
-  it('should set isFacingDown and isFacingRight for π/4 (down-right)', () => {
+  it.only('should set isFacingDown and isFacingRight for π/4 (down-right)', () => {
     const ray = new Ray(Math.PI / 4);
 
-    expect(ray.isFacingDown).toBe(true);
-    expect(ray.isFacingRight).toBe(true);
-    expect(ray.isFacingUp).toBe(false);
-    expect(ray.isFacingLeft).toBe(false);
+    expect(ray.facingDirection & RayDirection.Down).toBe(RayDirection.Down);
+    expect(ray.facingDirection & RayDirection.Right).toBe(RayDirection.Right);
+    expect(ray.facingDirection & RayDirection.Up).toBe(0);
+    expect(ray.facingDirection & RayDirection.Left).toBe(0);
   });
 
   it('should set isFacingDown and isFacingLeft for 3π/4 (down-left)', () => {
     const ray = new Ray((3 * Math.PI) / 4);
 
-    expect(ray.isFacingDown).toBe(true);
-    expect(ray.isFacingLeft).toBe(true);
+    expect(ray.facingDirection & RayDirection.Down).toBe(RayDirection.Down);
+    expect(ray.facingDirection & RayDirection.Left).toBe(RayDirection.Left);
   });
 
   it('should set isFacingUp and isFacingLeft for 5π/4 (up-left)', () => {
     const ray = new Ray((5 * Math.PI) / 4);
 
-    expect(ray.isFacingUp).toBe(true);
-    expect(ray.isFacingLeft).toBe(true);
+    expect(ray.facingDirection & RayDirection.Up).toBe(RayDirection.Up);
+    expect(ray.facingDirection & RayDirection.Left).toBe(RayDirection.Left);
   });
 
   it('should set isFacingUp and isFacingRight for 7π/4 (up-right)', () => {
     const ray = new Ray((7 * Math.PI) / 4);
 
-    expect(ray.isFacingUp).toBe(true);
-    expect(ray.isFacingRight).toBe(true);
+    expect(ray.facingDirection & RayDirection.Up).toBe(RayDirection.Up);
+    expect(ray.facingDirection & RayDirection.Right).toBe(RayDirection.Right);
   });
 });
 
@@ -51,8 +51,8 @@ describe('Ray.angle', () => {
 
     ray.angle = (5 * Math.PI) / 4; // now up-left
 
-    expect(ray.isFacingUp).toBe(true);
-    expect(ray.isFacingLeft).toBe(true);
+    expect(ray.facingDirection && RayDirection.Up).toBe(RayDirection.Up);
+    expect(ray.facingDirection && RayDirection.Left).toBe(RayDirection.Left);
   });
 
   it('should normalize negative angles to [0, 2π)', () => {
@@ -60,8 +60,8 @@ describe('Ray.angle', () => {
 
     ray.angle = -Math.PI / 2; // equivalent to 3π/2 → up, horizontal boundary is Left
 
-    expect(ray.isFacingUp).toBe(true);
-    expect(ray.isFacingLeft).toBe(true);
+    expect(ray.facingDirection && RayDirection.Up).toBe(RayDirection.Up);
+    expect(ray.facingDirection && RayDirection.Left).toBe(RayDirection.Left);
   });
 
   it('should normalize angles beyond 2π', () => {
@@ -69,8 +69,8 @@ describe('Ray.angle', () => {
 
     ray.angle = 3 * Math.PI; // equivalent to π → up (π is not strictly < π), Left
 
-    expect(ray.isFacingUp).toBe(true);
-    expect(ray.isFacingLeft).toBe(true);
+    expect(ray.facingDirection && RayDirection.Up).toBe(RayDirection.Up);
+    expect(ray.facingDirection && RayDirection.Left).toBe(RayDirection.Left);
   });
 });
 

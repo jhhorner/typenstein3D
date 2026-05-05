@@ -4,7 +4,7 @@ import { makeP5Mock, mockDeltaTime } from '../helpers/p5Mock.js';
 import { GameManager } from '../../src/game_manager.js';
 import { RayCaster, RAY_COUNT, WALL_PROJECTION_WIDTH } from '../../src/rendering/ray_caster.js';
 import { RayProjector } from '../../src/rendering/ray_projector.js';
-import { CollisionIntercept } from '../../src/rendering/ray.js';
+import { CollisionIntercept, RayDirection } from '../../src/rendering/ray.js';
 import { DefaultImageLoader } from '../../src/resources/image_loader.js';
 import { MAP_TILE_SIZE } from '../../src/core/constants.js';
 import { ImageName } from '../../src/resources/image_name.js';
@@ -96,6 +96,7 @@ describe('RayProjector.render', () => {
       const knownX = 128;
       GameManager.instance.rayCaster.rays.forEach((r) => {
         r.interceptHit = CollisionIntercept.Vertical;
+        r.facingDirection = RayDirection.Left;
         r.isFacingLeft = true;
         r.collisionPoint.x = knownX;
         r.collisionPoint.y = 128;
@@ -115,7 +116,7 @@ describe('RayProjector.render', () => {
       const knownY = 128;
       GameManager.instance.rayCaster.rays.forEach((r) => {
         r.interceptHit = CollisionIntercept.Horizontal;
-        r.isFacingUp = true;
+        r.facingDirection = RayDirection.Up;
         r.collisionPoint.x = 128;
         r.collisionPoint.y = knownY;
       });
